@@ -27,7 +27,7 @@ export default async function Home() {
   const { profile, projects } = await getData();
 
   return (
-    <main className="min-h-screen bg-background text-foreground selection:bg-brand-500/30">
+    <main className="min-h-screen bg-background text-foreground snap-y snap-mandatory scroll-smooth selection:bg-brand-500/30 scroll-pt-20">
       <Navbar />
       <HeroSection profile={profile} />
       <ProjectsSection projects={projects} />

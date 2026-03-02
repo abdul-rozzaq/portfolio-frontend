@@ -8,11 +8,20 @@ export async function GET() {
     await dbConnect();
 
     try {
-        const existingUser = await User.findOne({ email: "admin@example.com" });
+        const adminEmail = process.env.ADMIN_EMAIL;
+        const adminPassword = process.env.ADMIN_PASSWORD;
+
+        if (!adminEmail || !adminPassword) {
+            return NextResponse.json({ error: "ADMIN_EMAIL and ADMIN_PASSWORD must be defined in environment variables" }, { status: 400 });
+        }
+
+        const existingUser = await User.findOne({ email: adminEmail });
+
         if (!existingUser) {
-            const hashedPassword = await bcrypt.hash("admin123", 10);
+            const hashedPassword = await bcrypt.hash(adminPassword, 10);
+
             await User.create({
-                email: "admin@example.com",
+                email: adminEmail,
                 password: hashedPassword,
                 role: "admin",
             });
@@ -28,7 +37,7 @@ export async function GET() {
                 }
             });
 
-            return NextResponse.json({ message: "Admin user and default profile created: admin@example.com/admin123" });
+            return NextResponse.json({ message: `Admin user and default profile created: ${adminEmail}` });
         }
 
         return NextResponse.json({ message: "Admin already exists." });

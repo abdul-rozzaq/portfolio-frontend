@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 
-
 @theme {
   --color-brand-50: #f4f6fb;
   --color-brand-100: #e7ecf6;
@@ -15,13 +14,13 @@
   --color-brand-900: #2d385e;
   --color-brand-950: #1d223c;
 
-  --color-background: #09090b;
-  --color-foreground: #fafafa;
-  --color-muted: #a1a1aa;
-  --color-accent: #3b82f6;
-  --color-card: #09090b;
-  --color-card-foreground: #fafafa;
-  --color-border: #27272a;
+  --color-background: #0b0f1a;
+  --color-foreground: #d1d5db;
+  --color-muted: #4b5563;
+  --color-accent: #1d4ed8;
+  --color-card: #111827;
+  --color-card-foreground: #d1d5db;
+  --color-border: #111827;
 
   --radius-lg: 0.5rem;
   --radius-md: calc(0.5rem - 2px);
@@ -56,7 +55,7 @@
   }
 
   .animate-blob {
-    animation: blob 7s infinite;
+    animation: blob 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
   .animation-delay-2000 {
@@ -70,18 +69,22 @@
 
 @keyframes blob {
   0% {
-    transform: translate(0px, 0px) scale(1);
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
 
   33% {
-    transform: translate(30px, -50px) scale(1.1);
+    transform: translate(30px, -50px) scale(1.1) rotate(120deg);
+    border-radius: 30% 70% 70% 30% / 30% 70% 40% 60%;
   }
 
   66% {
-    transform: translate(-20px, 20px) scale(0.9);
+    transform: translate(-20px, 20px) scale(0.9) rotate(240deg);
+    border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
   }
 
   100% {
-    transform: translate(0px, 0px) scale(1);
+    transform: translate(0px, 0px) scale(1) rotate(360deg);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
 }

@@ -24,7 +24,7 @@ export function SkillsSection({ projects }: { projects: any[] }) {
   }
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden bg-background">
+    <section id="skills" className="py-24 relative overflow-hidden bg-background snap-start">
       <div className="container mx-auto px-6 max-w-5xl text-center">
         <h2 className="text-3xl md:text-5xl font-bold mb-16">Tools & Technologies</h2>
 
@@ -32,8 +32,8 @@ export function SkillsSection({ projects }: { projects: any[] }) {
           {skills.map((skill, index) => (
             <motion.div
               key={skill}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ scale: 1.05 }}

@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark snap-y snap-mandatory scroll-smooth">
       <body className={`${inter.className} min-h-screen bg-background text-foreground`}>
         <SessionProvider>{children}</SessionProvider>
       </body>

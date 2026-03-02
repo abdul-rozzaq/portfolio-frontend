@@ -44,12 +44,12 @@ export function Navbar() {
             Contact
           </Link>
         </nav>
-        <Link
+        {/* <Link
           href="/admin/login"
           className="text-xs font-semibold px-4 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-colors"
         >
           Admin
-        </Link>
+        </Link> */}
       </div>
     </motion.header>
   );
