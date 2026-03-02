@@ -19,6 +19,7 @@ export default function ProjectForm({ project }: { project?: Partial<IProject> }
         order: project?.order || 0,
     });
     const [techInput, setTechInput] = useState("");
+    const [uploading, setUploading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value, type, checked } = e.target as HTMLInputElement;
@@ -46,6 +47,34 @@ export default function ProjectForm({ project }: { project?: Partial<IProject> }
             ...formData,
             techStack: formData.techStack.filter((t) => t !== tech),
         });
+    };
+
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploading(true);
+        const uploadData = new FormData();
+        uploadData.append("file", file);
+
+        try {
+            const res = await fetch("/api/admin/upload", {
+                method: "POST",
+                body: uploadData,
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                setFormData(prev => ({ ...prev, coverImage: data.url }));
+            } else {
+                alert("Failed to upload image");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("An error occurred during upload");
+        } finally {
+            setUploading(false);
+        }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -149,15 +178,32 @@ export default function ProjectForm({ project }: { project?: Partial<IProject> }
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label className="block text-sm font-medium mb-2">Cover Image URL</label>
-                    <input
-                        type="text"
-                        name="coverImage"
-                        value={formData.coverImage}
-                        onChange={handleChange}
-                        className="w-full bg-background border border-white/10 rounded-lg px-4 py-2 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors placeholder:text-muted"
-                        placeholder="https://..."
-                    />
+                    <label className="block text-sm font-medium mb-2">Cover Image URL or Upload</label>
+                    <div className="flex gap-3">
+                        <input
+                            type="text"
+                            name="coverImage"
+                            value={formData.coverImage}
+                            onChange={handleChange}
+                            className="flex-1 bg-background border border-white/10 rounded-lg px-4 py-2 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors placeholder:text-muted"
+                            placeholder="https://... or click Upload"
+                        />
+                        <label className={`flex items-center justify-center px-4 py-2 bg-white/5 border border-white/10 rounded-lg cursor-pointer hover:bg-white/10 transition-colors ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                            <span className="text-sm font-medium text-white">{uploading ? "Uploading..." : "Upload Local"}</span>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={handleImageUpload}
+                                disabled={uploading}
+                            />
+                        </label>
+                    </div>
+                    {formData.coverImage && (
+                        <div className="mt-4 relative aspect-video rounded-lg overflow-hidden border border-white/10 bg-brand-900/20">
+                            <img src={formData.coverImage} alt="Cover Preview" className="object-cover w-full h-full" />
+                        </div>
+                    )}
                 </div>
                 <div>
                     <label className="block text-sm font-medium mb-2">Order</label>

@@ -28,7 +28,7 @@ export function ProjectsSection({ projects }: { projects: any[] }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.7 }}
-                className={`flex flex-col md:flex-row gap-[16px] items-start ${isOdd ? "md:flex-row-reverse" : ""}`}
+                className={`flex flex-col md:flex-row gap-[32px] items-start ${isOdd ? "md:flex-row-reverse" : ""}`}
               >
                 {/* Image Container */}
                 <div className="w-full md:w-1/2 group">
