@@ -1,5 +1,4 @@
 "use client";
-import ReactMarkdown from "react-markdown";
 
 import { useState, useMemo, useCallback, useEffect, useRef, type ChangeEvent } from "react";
 import Image from "next/image";
@@ -10,6 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import type { Project } from "@/lib/types";
 import { CustomReactMarkdown } from "../ui/custom-react-markdown";
+import { buildAbsoluteUrl } from "@/lib/api/axios";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -26,16 +26,17 @@ function useDebounce<T>(value: T, delay: number): T {
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="group flex flex-col rounded-2xl border border-white/8 bg-white/[0.02] overflow-hidden hover:border-white/18 hover:bg-white/[0.04] transition-all duration-300">
+    <article className="group flex flex-col rounded-2xl border border-white/8 bg-white/2 overflow-hidden hover:border-white/18 hover:bg-white/4 transition-all duration-300">
       {/* Cover image */}
       <div className="relative aspect-video bg-brand-950 overflow-hidden">
         {project.preview_image ? (
           <Image
-            src={project.preview_image.url}
+            src={buildAbsoluteUrl(project.preview_image.url)}
             alt={`${project.title} preview`}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            unoptimized
           />
         ) : (
           <div className="flex items-center justify-center w-full h-full">
