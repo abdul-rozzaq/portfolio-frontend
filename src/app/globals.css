@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-
 @theme {
+  /* ── Brand palette ─────────────────────────────────────────────────── */
   --color-brand-50: #f4f6fb;
   --color-brand-100: #e7ecf6;
   --color-brand-200: #cfdaf0;
@@ -14,77 +14,94 @@
   --color-brand-900: #2d385e;
   --color-brand-950: #1d223c;
 
+  /* ── Semantic surface colors ───────────────────────────────────────── */
   --color-background: #0b0f1a;
-  --color-foreground: #d1d5db;
-  --color-muted: #4b5563;
+  --color-foreground: #e2e8f0;
+  --color-muted: #64748b;
   --color-accent: #1d4ed8;
   --color-card: #111827;
-  --color-card-foreground: #d1d5db;
-  --color-border: #111827;
+  --color-card-foreground: #e2e8f0;
+  --color-border: rgba(255, 255, 255, 0.06);
 
-  --radius-lg: 0.5rem;
-  --radius-md: calc(0.5rem - 2px);
-  --radius-sm: calc(0.5rem - 4px);
+  /* ── Typography ──────────────────────────────────────────────────── */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 
+  /* ── Radius ──────────────────────────────────────────────────────── */
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.375rem;
+
+  /* ── Transition ──────────────────────────────────────────────────── */
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@custom-variant dark (&:is(.dark *));
-
+/* ── Base ──────────────────────────────────────────────────────────────── */
 @layer base {
-  * {
+
+  *,
+  *::before,
+  *::after {
     border-color: var(--color-border);
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Respect user preference for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-/* Custom Utilities for Premium Look */
+/* ── Utilities ─────────────────────────────────────────────────────────── */
 @layer utilities {
+
+  /* Premium gradient text */
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-300 via-white to-brand-300;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #aabfe5 0%, #ffffff 50%, #7e9dd6 100%);
   }
 
+  /* Glass surface */
   .bg-glass {
     @apply bg-black/40 backdrop-blur-xl border border-white/10;
   }
 
-  .animate-blob {
-    animation: blob 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  /* Ping animation for availability badge — kept intentionally */
+  @keyframes ping-slow {
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+
+    50% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
   }
 
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-
-  .animation-delay-4000 {
-    animation-delay: 4s;
-  }
-}
-
-@keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1) rotate(0deg);
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  }
-
-  33% {
-    transform: translate(30px, -50px) scale(1.1) rotate(120deg);
-    border-radius: 30% 70% 70% 30% / 30% 70% 40% 60%;
-  }
-
-  66% {
-    transform: translate(-20px, 20px) scale(0.9) rotate(240deg);
-    border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
-  }
-
-  100% {
-    transform: translate(0px, 0px) scale(1) rotate(360deg);
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  .animate-ping {
+    animation: ping-slow 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 }

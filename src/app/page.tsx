@@ -1,44 +1,66 @@
-import dbConnect from "@/lib/mongoose";
-import { Profile } from "@/models/Profile";
-import { Project } from "@/models/Project";
+import { getProfile } from "@/lib/api/profile";
+import { getProjects } from "@/lib/api/projects";
+import { getExperiences } from "@/lib/api/experience";
+import { BackgroundPattern } from "@/components/ui/background-pattern";
 import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 
-export const revalidate = 60; // Revalidate at most every minute
-
-async function getData() {
-  await dbConnect();
-
-  const profile = await Profile.findOne().lean();
-
-  // Sort by featured first, then by order
-  const projects = await Project.find().sort({ featured: -1, order: 1 }).lean();
-
-  return {
-    profile: JSON.parse(JSON.stringify(profile)),
-    projects: JSON.parse(JSON.stringify(projects)),
-  };
-}
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60;
 
 export default async function Home() {
-  const { profile, projects } = await getData();
+  const [profile, projects, experiences] = await Promise.all([
+    getProfile(),
+    getProjects(),
+    getExperiences(),
+  ]);
 
   return (
-    <main className="min-h-screen bg-background text-foreground selection:bg-brand-500/30">
-      <Navbar />
-      <HeroSection profile={profile} />
-      <ProjectsSection projects={projects} />
-      <SkillsSection projects={projects} />
-      <ContactSection />
+    <>
+      <BackgroundPattern />
 
-      <footer className="py-8 bg-background border-t border-white/5 text-center text-muted text-sm">
-        <p>
-          &copy; {new Date().getFullYear()} {profile?.fullName || "Portfolio"}. Built with Next.js
-        </p>
-      </footer>
-    </main>
+      <main className="relative z-10 min-h-screen">
+        <Navbar />
+
+        <HeroSection profile={profile} />
+
+        {/* Subtle divider */}
+        <div className="container mx-auto px-6 max-w-4xl">
+          <hr className="border-white/5" />
+        </div>
+
+        <ExperienceSection experiences={experiences} />
+
+        <div className="container mx-auto px-6 max-w-6xl">
+          <hr className="border-white/5" />
+        </div>
+
+        <ProjectsSection projects={projects} />
+
+        <div className="container mx-auto px-6 max-w-6xl">
+          <hr className="border-white/5" />
+        </div>
+
+        <SkillsSection />
+
+        <div className="container mx-auto px-6 max-w-6xl">
+          <hr className="border-white/5" />
+        </div>
+
+        <ContactSection />
+
+        <footer className="py-10 border-t border-white/5 text-center text-muted/50 text-xs">
+          <div className="container mx-auto px-6">
+            <p>
+              © {new Date().getFullYear()} {profile.fullName}. Designed & built with Next.js.
+            </p>
+          </div>
+        </footer>
+      </main>
+    </>
   );
 }
