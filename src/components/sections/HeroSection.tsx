@@ -25,7 +25,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
 
           {/* Headline */}
           <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight leading-[1.05]">
-            Hi, I&apos;m <span className="text-white">{profile.fullName || "Developer"}</span>
+            Hi, I&apos;m <span className="text-white">{profile.name || "Developer"}</span>
             .<br />
             <span className="text-gradient leading-tight">
               {profile.title || "Fullstack Engineer"}
@@ -79,9 +79,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
 
             {/* Social links */}
             <div className="flex items-center gap-3 ml-1">
-              {profile.socialLinks?.github && (
+              {profile.github_link && (
                 <a
-                  href={profile.socialLinks.github}
+                  href={profile.github_link}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
@@ -92,9 +92,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
                   </svg>
                 </a>
               )}
-              {profile.socialLinks?.linkedin && (
+              {profile.linkedin_link && (
                 <a
-                  href={profile.socialLinks.linkedin}
+                  href={profile.linkedin_link}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"

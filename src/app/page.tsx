@@ -56,7 +56,7 @@ export default async function Home() {
         <footer className="py-10 border-t border-white/5 text-center text-muted/50 text-xs">
           <div className="container mx-auto px-6">
             <p>
-              © {new Date().getFullYear()} {profile.fullName}. Designed & built with Next.js.
+              © {new Date().getFullYear()} {profile.name}. Designed & built with Next.js.
             </p>
           </div>
         </footer>

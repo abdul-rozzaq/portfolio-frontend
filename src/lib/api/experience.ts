@@ -1,10 +1,12 @@
 import type { Experience } from "@/lib/types";
 import { mockExperiences } from "@/lib/mock/experience";
+import apiClient from "./axios";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 /**
  * Fetch all work experiences, sorted chronologically (newest first).
+ * Falls back to mock data when no API_BASE is configured.
  */
 export async function getExperiences(): Promise<Experience[]> {
     if (!API_BASE) {
@@ -12,13 +14,7 @@ export async function getExperiences(): Promise<Experience[]> {
         return mockExperiences;
     }
 
-    const res = await fetch(`${API_BASE}/experiences`, {
-        next: { revalidate: 3600 },
-    });
+    const { data } = await apiClient.get<{ data: Experience[] }>("/experiences?populate=technologies");
 
-    if (!res.ok) {
-        throw new Error(`Failed to fetch experiences: ${res.status}`);
-    }
-
-    return res.json();
+    return data.data;
 }

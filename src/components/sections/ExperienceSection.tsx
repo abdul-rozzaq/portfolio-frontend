@@ -55,25 +55,13 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
                       )}
                     </div>
                     <span className="text-xs font-mono text-muted/70 bg-white/5 border border-white/8 px-3 py-1 rounded-full whitespace-nowrap">
-                      {exp.period}
+                      {exp.started_at} - {exp.ended_at ?? "Present"}
                     </span>
                   </div>
 
                   {/* Impact bullets */}
-                  <ul className="space-y-2 mb-5" role="list">
-                    {exp.bullets.map((bullet, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2.5 text-sm text-muted/80 leading-relaxed"
-                      >
-                        <span
-                          className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-brand-500/60"
-                          aria-hidden="true"
-                        />
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
+
+                  <div className="mb-5">{exp.description}</div>
 
                   {/* Tech chips */}
                   <div
@@ -81,13 +69,13 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
                     role="list"
                     aria-label="Technologies used"
                   >
-                    {exp.techUsed.map((tech) => (
+                    {exp.technologies.map((tech) => (
                       <span
-                        key={tech}
+                        key={tech.id}
                         role="listitem"
                         className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/20"
                       >
-                        {tech}
+                        {tech.title}
                       </span>
                     ))}
                   </div>

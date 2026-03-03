@@ -7,7 +7,7 @@ export const mockProjects: Project[] = [
         slug: "vitalis",
         description:
             "A full-featured healthcare management system supporting departments, patient records, payments, and role-based access control. Built for medical teams with real-time updates and audit trails.",
-        techStack: ["Next.js", "NestJS", "PostgreSQL", "Prisma", "TanStack Query", "TypeScript"],
+        technologies: ["Next.js", "NestJS", "PostgreSQL", "Prisma", "TanStack Query", "TypeScript"],
         coverImage: undefined,
         liveUrl: undefined,
         repoUrl: "https://github.com",
@@ -20,7 +20,7 @@ export const mockProjects: Project[] = [
         slug: "amo-crm-integration",
         description:
             "A webhook-driven CRM integration service that syncs leads, contacts, and pipelines from AmoCRM with an internal backend. Includes retry logic, event queuing, and structured logging.",
-        techStack: ["NestJS", "TypeScript", "Webhooks", "REST API", "Docker"],
+        technologies: ["NestJS", "TypeScript", "Webhooks", "REST API", "Docker"],
         coverImage: undefined,
         liveUrl: undefined,
         repoUrl: "https://github.com",
@@ -33,7 +33,7 @@ export const mockProjects: Project[] = [
         slug: "telegram-bridge",
         description:
             "A service bridging Telegram's MTProto API with a custom backend, enabling message automation, user session management, and event-driven notification pipelines.",
-        techStack: ["Node.js", "Telegram MTProto", "Redis", "PostgreSQL", "TypeScript"],
+        technologies: ["Node.js", "Telegram MTProto", "Redis", "PostgreSQL", "TypeScript"],
         coverImage: undefined,
         liveUrl: undefined,
         repoUrl: "https://github.com",
@@ -46,7 +46,7 @@ export const mockProjects: Project[] = [
         slug: "admin-dashboard",
         description:
             "A reusable admin dashboard foundation with role-based permissions, data tables, modal pages, and REST-connected modules. Designed for rapid internal tool development.",
-        techStack: ["Next.js", "TypeScript", "TanStack Table", "Tailwind CSS", "Zod"],
+        technologies: ["Next.js", "TypeScript", "TanStack Table", "Tailwind CSS", "Zod"],
         coverImage: undefined,
         liveUrl: undefined,
         repoUrl: "https://github.com",
@@ -59,7 +59,7 @@ export const mockProjects: Project[] = [
         slug: "portfolio-v2",
         description:
             "This very portfolio — rebuilt from the ground up with a clean API layer, externalized data fetching, reduced motion, and a production-grade architecture.",
-        techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+        technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
         coverImage: undefined,
         liveUrl: "https://portfolio.dev",
         repoUrl: "https://github.com",

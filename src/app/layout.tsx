@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { QueryProvider } from "@/components/providers/QueryProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,7 +30,8 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-sans min-h-screen bg-background text-foreground antialiased`}
       >
-        {children}
+        {/* QueryProvider enables TanStack Query hooks in all client components */}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

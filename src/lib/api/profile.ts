@@ -1,10 +1,12 @@
 import type { Profile } from "@/lib/types";
 import { mockProfile } from "@/lib/mock/profile";
+import apiClient from "./axios";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 /**
  * Fetch the portfolio owner's profile.
+ * Falls back to mock data when no API_BASE is configured.
  */
 export async function getProfile(): Promise<Profile> {
     if (!API_BASE) {
@@ -12,13 +14,7 @@ export async function getProfile(): Promise<Profile> {
         return mockProfile;
     }
 
-    const res = await fetch(`${API_BASE}/profile`, {
-        next: { revalidate: 3600 },
-    });
+    const { data } = await apiClient.get<{ data: Profile }>("/meta");
 
-    if (!res.ok) {
-        throw new Error(`Failed to fetch profile: ${res.status}`);
-    }
-
-    return res.json();
+    return data.data;
 }

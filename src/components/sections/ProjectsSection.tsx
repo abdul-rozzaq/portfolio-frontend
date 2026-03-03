@@ -1,4 +1,5 @@
 "use client";
+import ReactMarkdown from "react-markdown";
 
 import { useState, useMemo, useCallback, useEffect, useRef, type ChangeEvent } from "react";
 import Image from "next/image";
@@ -8,6 +9,7 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import type { Project } from "@/lib/types";
+import { CustomReactMarkdown } from "../ui/custom-react-markdown";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -27,9 +29,9 @@ function ProjectCard({ project }: { project: Project }) {
     <article className="group flex flex-col rounded-2xl border border-white/8 bg-white/[0.02] overflow-hidden hover:border-white/18 hover:bg-white/[0.04] transition-all duration-300">
       {/* Cover image */}
       <div className="relative aspect-video bg-brand-950 overflow-hidden">
-        {project.coverImage ? (
+        {project.preview_image ? (
           <Image
-            src={project.coverImage}
+            src={project.preview_image.url}
             alt={`${project.title} preview`}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -50,17 +52,18 @@ function ProjectCard({ project }: { project: Project }) {
       {/* Content */}
       <div className="flex flex-col flex-1 p-6">
         <h3 className="text-base font-bold text-white mb-2">{project.title}</h3>
-        <p className="text-sm text-muted/80 leading-relaxed mb-4 flex-1">{project.description}</p>
+
+        <CustomReactMarkdown>{project.description}</CustomReactMarkdown>
 
         {/* Tech stack */}
         <div className="flex flex-wrap gap-1.5 mb-5" role="list" aria-label="Tech stack">
-          {project.techStack.map((tech) => (
+          {project.technologies.map((tech) => (
             <span
-              key={tech}
+              key={tech.id}
               role="listitem"
               className="px-2.5 py-0.5 bg-white/5 border border-white/10 text-white/70 rounded-full text-xs font-medium"
             >
-              {tech}
+              {tech.title}
             </span>
           ))}
         </div>
@@ -124,7 +127,9 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   // Derive unique techs for filter chips
   const allTechs = useMemo(() => {
     const set = new Set<string>();
-    projects.forEach((p) => p.techStack.forEach((t) => set.add(t)));
+
+    projects.forEach((p) => p.technologies.forEach((t) => set.add(t.title)));
+
     return Array.from(set).sort();
   }, [projects]);
 
@@ -138,7 +143,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
     }
 
     if (techFilter) {
-      result = result.filter((p) => p.techStack.includes(techFilter));
+      result = result.filter((p) => p.technologies.some((t) => t.title === techFilter));
     }
 
     if (debouncedQuery.trim()) {
@@ -147,7 +152,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         (p) =>
           p.title.toLowerCase().includes(q) ||
           p.description.toLowerCase().includes(q) ||
-          p.techStack.some((t) => t.toLowerCase().includes(q)),
+          p.technologies.some((t) => t.title.toLowerCase().includes(q)),
       );
     }
 

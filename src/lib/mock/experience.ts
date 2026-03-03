@@ -6,8 +6,8 @@ export const mockExperiences: Experience[] = [
         company: "Vitalis Health",
         role: "Lead Fullstack Engineer",
         period: "2024 – Present",
-        startDate: "2024-01",
-        endDate: undefined,
+        started_at: "2024-01",
+        ended_at: undefined,
         description:
             "Leading the engineering effort for a healthcare SaaS platform covering patient management, departments, payments, and access control.",
         bullets: [
@@ -23,8 +23,8 @@ export const mockExperiences: Experience[] = [
         company: "Freelance / Contract",
         role: "Backend & Integration Engineer",
         period: "2022 – 2024",
-        startDate: "2022-06",
-        endDate: "2024-01",
+        started_at: "2022-06",
+        ended_at: "2024-01",
         description:
             "Delivered backend services and third-party integrations for startups across healthcare, logistics, and CRM domains.",
         bullets: [
@@ -40,8 +40,8 @@ export const mockExperiences: Experience[] = [
         company: "Personal Projects & OSS",
         role: "Solo Developer",
         period: "2020 – 2022",
-        startDate: "2020-01",
-        endDate: "2022-06",
+        started_at: "2020-01",
+        ended_at: "2022-06",
         description:
             "Built and shipped personal projects to sharpen fullstack skills across frontend, backend, and DevOps.",
         bullets: [
