@@ -7,7 +7,7 @@ export function ProjectsSection({ projects }: { projects: any[] }) {
   if (!projects || projects.length === 0) return null;
 
   return (
-    <section id="projects" className="py-32 relative z-10 bg-background snap-start">
+    <section id="projects" className="py-32 relative z-10 bg-background">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="mb-20">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Selected Work</h2>
@@ -59,9 +59,7 @@ export function ProjectsSection({ projects }: { projects: any[] }) {
                     )}
                   </div>
 
-                  <p className="text-base md:text-lg leading-relaxed">
-                    {project.description}
-                  </p>
+                  <p className="text-base md:text-lg leading-relaxed">{project.description}</p>
 
                   <div className="flex flex-wrap gap-2 mb-8 justify-start">
                     {project.techStack.map((tech: string, i: number) => (

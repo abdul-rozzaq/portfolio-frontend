@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export function HeroSection({ profile }: { profile: any }) {
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden snap-start"
+      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
       id="about"
     >
       {/* Background blobs */}
@@ -30,7 +30,7 @@ export function HeroSection({ profile }: { profile: any }) {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tight leading-tight"
+            className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight leading-tight"
           >
             Hi, I'm {profile?.fullName || "Developer"}.<br />
             <span className="text-gradient leading-tight">
